@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="ywm">
+    <serverData>
+      <paths name="ywm">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ywm/MUSIC/onset_detection" local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
