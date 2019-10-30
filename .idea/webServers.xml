@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="263fadcf-0e2f-4df7-849a-26680edce514" name="static_ywm" url="http://192.168.66.18">
+        <fileTransfer host="192.168.66.18" port="22" rootFolder="/home/ywm/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
