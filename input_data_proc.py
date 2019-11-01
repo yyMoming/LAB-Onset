@@ -98,7 +98,7 @@ class data_proc(object):
         return cqt
 
 if __name__ == '__main__':
-    anno_file = "F:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\308\\308_onset.txt"
+    anno_file = "F:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\364\\364_onset.txt"
     wav_file = "F:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\308\\308.wav"
     instance = data_proc(pad_length)
     input_specs, input_labels = instance.input_onset_data(wav_file,anno_file)
