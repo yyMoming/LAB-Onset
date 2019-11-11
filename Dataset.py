@@ -51,7 +51,7 @@ class onset_dataset(Dataset):
     def get_data(self,start,end):
         for i in range(start,end):
             wav_file = self.wav_files[i]
-            anno_file = wav_file[:-4] + '_onset.txt'
+            anno_file = wav_file[:-4] + '.txt'
             input_specs, onset_labels = self.input_onset_data(wav_file,anno_file)
 
             self.datas.append(input_specs)
@@ -82,4 +82,4 @@ if __name__ == '__main__':
                  "F:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\408\\408.wav"]
     test = onset_dataset(wav_files,anno_file,pad_length=4)
     print("datas:",test.datas.shape)
-    print(test[2])
+    print("labels:",test.labels.shape)

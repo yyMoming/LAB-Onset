@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 from Dataset import onset_dataset
 from model import factory_net
 from losses import focalloss
+import multiprocessing
 parser = argparse.ArgumentParser()
 '''
 	some constants
@@ -28,6 +29,12 @@ num_worker = 12
 alpha = 5.0
 torch.manual_seed(1)
 use_cuda = torch.cuda.is_available()
+lr = 0.001#学习速率
+momentum = 0.9
+weight_decay = 0.0005
+'''
+	model save path
+'''
 model_path = os.path.join('./model','{}_{}_{}_ywmtest_mono'.format(
         spec_style, net_style, pad_length))
 if not os.path.exists(model_path):
@@ -51,39 +58,100 @@ def get_solf_wav_anno_files(root_path):
 	test_anno_list = np.array(test_anno_list)
 
 	return train_wav_list, train_anno_list, test_wav_list, test_anno_list
-rain_wav_list, train_anno_list, test_wav_list, test_anno_list = get_solf_wav_anno_files(path)
-test_dataset = onset_dataset(test_wav_list,
-			                 test_anno_list,
-			                 pad_length=pad_length,
-			                 spec_style="cqt",
-			                 dual_channel=False,
-			                 is_filter=False,
-			                 is_training=True)
+'''
+	files path list
+'''
+path = './shuffle_data'
+train_wav_list, train_anno_list, \
+test_wav_list, test_anno_list = get_solf_wav_anno_files(path)
+# test_dataset = onset_dataset(test_wav_list,
+# 			                 test_anno_list,
+# 			                 pad_length=pad_length,
+# 			                 spec_style="cqt",
+# 			                 dual_channel=False,
+# 			                 is_filter=False,
+# 			                 is_training=False)
 
 '''
-	get test DataLoader, net, model save_path....
+	get test DataLoader, net, model save_path.... 
+	linux num_workers can be used normally
 '''
 
-test_dataloader = DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=False,
-                             num_workers=num_worker)
+# test_dataloader = DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=False,
+#                              num_workers=num_worker)
 net = factory_net(net_style=net_style,pad_length=pad_length,spec_style=spec_style,
                   dual_channel=dual)
-model_path = os.path.join('./model','{}_{}_{}_ywmtest_mono'.format(
-        spec_style, net_style, pad_length))
-if not os.path.exists(model_path):
-    os.makedirs(model_path)
+
+'''
+	use_cuda, choose criterion and optimizer
+'''
 if use_cuda:
     net = net.cuda()#将所有的模型参数和缓存赋值GPU
     torch.cuda.manual_seed(1)
 criterion = focalloss(alpha)#修正LOSS函数
 # criterion = nn.BCELoss()
 optimizer = torch.optim.SGD(net.parameters(),#构造网络优化器
-                            lr=args.lr,#学习速率
-                            momentum=args.momentum,
-                            weight_decay=args.weight_decay)#default=0.0005
+                            lr=lr,#学习速率
+                            momentum=momentum,
+                            weight_decay=weight_decay)#default=0.0005
+torch.backends.cudnn.benchmark = True
+'''
+	train function
+'''
+split_num = 30
+def train(epoches):
+	net.train()
+	total_loss = 0.0
+	total_precise = 0.0
+	total_recall= 0.0
+	total_Fscore = 0.0
+	steps = 0
+	for index in range(split_num):
+		wav_files, anno_files = get_file(index)
+
+		train_dataset = onset_dataset(wav_files,
+		                             anno_files,
+		                             pad_length=pad_length,
+		                             spec_style="cqt",
+		                             dual_channel=False,
+		                             is_filter=False,
+		                             is_training=False)
+		train_dataloader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=False,
+		                              num_workers=num_worker)
+		for idx,(inputs,labels) in enumerate(train_dataloader):
+			inputs = Variable(inputs)
+			labels = Variable(labels)
+			if use_cuda:
+				inputs = inputs.cuda()
+				labels = labels.cuda()
+			optimizer.zero_grad()
+			output = net(inputs)
+			loss = criterion(output,labels)
+			loss.backward()
+			optimizer.step()
+			total_loss += loss.data
+
+def get_file(index):
+    start = index * len(train_wav_list) // split_num #整除
+    end = (index + 1) * len(train_wav_list) // split_num
+    wav_files = train_wav_list[start:end]
+    anno_files = train_anno_list[start:end]
+    return wav_files, anno_files
 
 if __name__ == '__main__':
+	multiprocessing.freeze_support()
+	test_dataset = onset_dataset(test_wav_list,
+	                             test_anno_list,
+	                             pad_length=pad_length,
+	                             spec_style="cqt",
+	                             dual_channel=False,
+	                             is_filter=False,
+	                             is_training=False)
+	test_dataloader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False,
+	                             num_workers=num_worker)
 	path = os.path.dirname(__file__)
 	data_path = os.path.join(path,"shuffle_data")
 	a,b,c,d =get_solf_wav_anno_files(data_path)
+
+	train(1)
 	print('hi')

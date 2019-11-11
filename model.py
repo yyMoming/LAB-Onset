@@ -59,7 +59,7 @@ class onsetnet(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.dropout(x)
         x = self.fc2(x)
-        return F.sigmoid(x)
+        return torch.sigmoid(x) #py3.7中改为torch.sigmoid
 
 
 class onsetconv3(nn.Module):
@@ -179,8 +179,8 @@ def factory_net(net_style,
 
 
 if __name__ == '__main__':
-    inputs_ = Variable(torch.randn(1, 1, 267, 9))
-    net = onsetconv()
+    inputs_ = Variable(torch.randn(19, 1, 267, 9))
+    net = onsetnet()
 
     output = net(inputs_)
-    # print(output.size())
+    print(output.size(),output.data)

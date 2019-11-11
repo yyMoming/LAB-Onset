@@ -56,6 +56,7 @@ class data_proc(object):
         '''
         with open(anno_file,'r+') as f:
             onsets = f.readlines()
+        onsets = onsets[1:]
         onset_values = []
         for onset in onsets:
             onset = onset.strip().strip('\n').split('\t')[0]
