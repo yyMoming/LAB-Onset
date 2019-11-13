@@ -34,6 +34,10 @@ lr = 0.001#学习速率
 momentum = 0.9
 weight_decay = 0.0005
 display = 100
+parser = argparse.ArgumentParser()
+parser.add_argument('--train', '-t', help="if begin to train", action="store_true")
+parser.add_argument('--epoches', type=int, default=40, help="decide the epoches for the train")
+args = parser.parse_args()
 '''
 	model save path
 '''
@@ -110,6 +114,10 @@ def train(epoch):
 	steps = 0
 	evaluator = evaluate()
 	last_display_time = time.time()
+	f_record = open('./log/record.txt','w')
+	precise = 0.0
+	recall = 0.0
+	Fscore = 0.0
 	for index in range(split_num):
 		wav_files, anno_files = get_file(index)
 
@@ -136,9 +144,9 @@ def train(epoch):
 			total_loss += loss.data
 			eval = evaluator(output.data,labels.data)
 			steps += 1
-			precise = eval['P']
-			recall = eval['R']
-			Fscore = eval['F']
+			precise += eval['P']
+			recall += eval['R']
+			Fscore += eval['F']
 			total_times = time.time() - last_display_time
 			if steps % display == 0:  # display=100
 				P = precise / steps
@@ -150,14 +158,80 @@ def train(epoch):
 				last_display_time = time.time()
 				print('epoch:%d || losses:%.6f || precise:%.6f || recall:%.6f|| F_score:%.6f || batch time:%.6f'
 				      % (epoch, ls, P, R, F, per_display_t))
+			f_record.write(str(loss.data)+'\n')
+			f_record.flush()
+	f_record.close()
 
+'''
+	validation function
+'''
+def val(epoch):
+	best_Fscore = 0.0
+	net.eval()
+	precise, recall, Fscore = 0.0, 0.0, 0.0
+	total_losses = 0.0
+	steps = 0
+	evaluator = evaluate()
+	for batch_idx,(inputs,labels) in enumerate(test_dataloader):
+		output = net(inputs)
+		optimizer.zero_grad()
+		loss = criterion(inputs,labels)
+		loss.backward()
+		optimizer.step()
+		steps += 1
+		total_losses += loss.data
+		eval = evaluator(output.data, labels.data)
+		precise += eval['P']
+		recall += eval['R']
+		Fscore += eval['F']
 
+	loss_avg = total_losses / steps
+	precise = precise / steps
+	recall = recall / steps
+	Fscore = Fscore / steps
+	print('test log:epoch%d || losses:%.6f precise:%.6f || recall:%.6f || F_score:%.6f'
+	      % (epoch, loss_avg, precise, recall, Fscore))
+	model_name = 'epoch_{}.pth'.format(epoch + 1)
+	model_name = os.path.join(model_path, model_name)
+	torch.save(net.state_dict(), model_name)
+	if Fscore > best_Fscore:
+		model_name = 'best.pth'
+		model_name = os.path.join(model_path,model_name)
+		torch.save(net.state_dict(),model_name)
+
+'''
+	previously shuffle the files for training  each time
+'''
+def shuffle_idx():
+	global train_anno_list, train_wav_list
+	per_arr = np.random.permutation(len(train_wav_list))
+	train_wav_list = train_wav_list[per_arr]
+	train_anno_list = train_anno_list[per_arr]
+
+'''
+	adjust the momentum
+'''
+def adjust_momentum(epoch):
+	global lr
+	lr = lr * pow(0.3, epoch)
+	for param_group in optimizer.param_groups:
+		param_group['lr'] = lr
+
+'''
+	seperate train data
+'''
 def get_file(index):
     start = index * len(train_wav_list) // split_num #整除
     end = (index + 1) * len(train_wav_list) // split_num
     wav_files = train_wav_list[start:end]
     anno_files = train_anno_list[start:end]
     return wav_files, anno_files
+
+def main(epoch):
+	shuffle_idx()
+	train(epoch)
+	val(epoch)
+	adjust_momentum(epoch)
 
 if __name__ == '__main__':
 	multiprocessing.freeze_support()
@@ -170,9 +244,8 @@ if __name__ == '__main__':
 	                             is_training=False)
 	test_dataloader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False,
 	                             num_workers=num_worker)
-	path = os.path.dirname(__file__)
-	data_path = os.path.join(path,"shuffle_data")
-	a,b,c,d =get_solf_wav_anno_files(data_path)
-
-	train(1)
-	print('hi')
+	# path = os.path.dirname(__file__)
+	# data_path = os.path.join(path,"shuffle_data")
+	if args.train:
+		for epoch in range(args.epoches):
+			main(epoch)

@@ -18,22 +18,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="27" column="29" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3620">
-              <caret line="185" column="35" selection-start-line="185" selection-start-column="35" selection-end-line="185" selection-end-column="35" />
+            <state relative-caret-position="160">
+              <caret line="8" column="99" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="99" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -44,10 +32,28 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-52">
-              <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
+            <state relative-caret-position="1968">
+              <caret line="238" column="38" selection-start-line="238" selection-start-column="38" selection-end-line="238" selection-end-column="38" />
               <folding>
                 <element signature="e#121#130#0" expanded="true" />
+                <element signature="e#1029#1817#0" />
+                <element signature="e#3121#4881#0" />
+                <element signature="e#4974#5888#0" />
+                <element signature="e#6043#6219#0" />
+                <element signature="e#6283#6377#0" />
+                <element signature="e#5378#5606#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Onset.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1478">
+              <caret line="141" selection-start-line="141" selection-end-line="141" />
+              <folding>
+                <element signature="e#23#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,7 +80,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/runpy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1600">
+            <state relative-caret-position="635">
               <caret line="84" selection-start-line="84" selection-end-line="84" />
             </state>
           </provider>
@@ -83,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/popen_spawn_win32.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="740">
+            <state relative-caret-position="635">
               <caret line="45" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
@@ -92,7 +98,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6320">
+            <state relative-caret-position="533">
               <caret line="321" selection-start-line="321" selection-end-line="321" />
             </state>
           </provider>
@@ -101,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="94" column="26" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="26" />
+            <state relative-caret-position="475">
+              <caret line="92" column="30" lean-forward="true" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
               <folding>
                 <element signature="e#1536#2692#1" />
               </folding>
@@ -144,6 +150,7 @@
       <find>onset</find>
       <find>_onset</find>
       <find>self.is_training</find>
+      <find>precise</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,7 +178,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1087" />
@@ -391,12 +398,12 @@
       <workItem from="1573097099276" duration="1239000" />
       <workItem from="1573435471131" duration="14963000" />
       <workItem from="1573519723739" duration="2791000" />
-      <workItem from="1573607082023" duration="609000" />
+      <workItem from="1573607082023" duration="7560000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98195000" />
+    <option name="totallyTimeSpent" value="105146000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -408,14 +415,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="953" y="0" width="974" height="1087" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15724947" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.32275712" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24931003" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.06716418" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32938644" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21959096" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39019188" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -424,7 +432,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32952183" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.15565032" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.26910657" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.41765338" />
       <window_info anchor="bottom" id="Statistic" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -493,17 +501,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/train.py</url>
-          <line>176</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train.py</url>
-          <line>131</line>
+          <line>138</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/train.py</url>
-          <line>134</line>
+          <line>141</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
@@ -603,16 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Onset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2820">
-          <caret line="141" selection-start-line="141" selection-end-line="141" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dataloader_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -643,58 +636,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3620">
-          <caret line="185" column="35" selection-start-line="185" selection-start-column="35" selection-end-line="185" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/spawn.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2540">
           <caret line="135" selection-start-line="135" selection-end-line="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/runpy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1600">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/popen_spawn_win32.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6320">
-          <caret line="321" selection-start-line="321" selection-end-line="321" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="94" column="26" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="26" />
-          <folding>
-            <element signature="e#1536#2692#1" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -708,12 +653,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Onset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1478">
+          <caret line="141" selection-start-line="141" selection-end-line="141" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/losses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="92" column="30" lean-forward="true" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
+          <folding>
+            <element signature="e#1536#2692#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/popen_spawn_win32.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/runpy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Anaconda3.7/envs/pytorch/Lib/multiprocessing/context.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="321" selection-start-line="321" selection-end-line="321" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="99" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="99" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-52">
-          <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
+        <state relative-caret-position="1968">
+          <caret line="238" column="38" selection-start-line="238" selection-start-column="38" selection-end-line="238" selection-end-column="38" />
           <folding>
             <element signature="e#121#130#0" expanded="true" />
+            <element signature="e#1029#1817#0" />
+            <element signature="e#3121#4881#0" />
+            <element signature="e#4974#5888#0" />
+            <element signature="e#6043#6219#0" />
+            <element signature="e#6283#6377#0" />
+            <element signature="e#5378#5606#0" />
           </folding>
         </state>
       </provider>
