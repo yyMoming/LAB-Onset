@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 from Dataset import onset_dataset
 from model import factory_net
 from losses import focalloss
+from evaluate import evaluate
 import multiprocessing
 parser = argparse.ArgumentParser()
 '''
@@ -32,6 +33,7 @@ use_cuda = torch.cuda.is_available()
 lr = 0.001#学习速率
 momentum = 0.9
 weight_decay = 0.0005
+display = 100
 '''
 	model save path
 '''
@@ -99,13 +101,15 @@ torch.backends.cudnn.benchmark = True
 	train function
 '''
 split_num = 30
-def train(epoches):
+def train(epoch):
 	net.train()
 	total_loss = 0.0
 	total_precise = 0.0
 	total_recall= 0.0
 	total_Fscore = 0.0
 	steps = 0
+	evaluator = evaluate()
+	last_display_time = time.time()
 	for index in range(split_num):
 		wav_files, anno_files = get_file(index)
 
@@ -119,8 +123,8 @@ def train(epoches):
 		train_dataloader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=False,
 		                              num_workers=num_worker)
 		for idx,(inputs,labels) in enumerate(train_dataloader):
-			inputs = Variable(inputs)
-			labels = Variable(labels)
+			# inputs = Variable(inputs)
+			# labels = Variable(labels)
 			if use_cuda:
 				inputs = inputs.cuda()
 				labels = labels.cuda()
@@ -130,6 +134,23 @@ def train(epoches):
 			loss.backward()
 			optimizer.step()
 			total_loss += loss.data
+			eval = evaluator(output.data,labels.data)
+			steps += 1
+			precise = eval['P']
+			recall = eval['R']
+			Fscore = eval['F']
+			total_times = time.time() - last_display_time
+			if steps % display == 0:  # display=100
+				P = precise / steps
+				R = recall / steps
+				F = Fscore / steps
+				t = total_times / steps
+				ls = total_loss / steps
+				per_display_t = time.time() - last_display_time
+				last_display_time = time.time()
+				print('epoch:%d || losses:%.6f || precise:%.6f || recall:%.6f|| F_score:%.6f || batch time:%.6f'
+				      % (epoch, ls, P, R, F, per_display_t))
+
 
 def get_file(index):
     start = index * len(train_wav_list) // split_num #整除
