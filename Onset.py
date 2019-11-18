@@ -55,7 +55,7 @@ class predictor_onset(object):
             input_specs.append(np.expand_dims(input_spec, axis=0))
         input_specs = np.concatenate(input_specs, axis=0)
         input_specs = Variable(torch.from_numpy(input_specs).float())#频谱转换为间隔为1帧的N个9帧数组，并且变换为torch变量
-        return input_specs#2d
+        return input_specs  #2d
 
     def cal_cqt_spectrum(self, wav_file): #计算CQT频谱图
 
@@ -77,7 +77,7 @@ class predictor_onset(object):
         return cqt
 
     def load_model(self, model_path):
-        self.net.load_state_dict(torch.load(model_path))
+        self.net.load_state_dict(torch.load(model_path,map_location=torch.device('cpu')))
         self.net.eval()#设置预测模式
         if use_cuda:
             self.net = self.net.cuda()
@@ -96,9 +96,11 @@ class predictor_onset(object):
             if use_cuda:
                 inputs = inputs.cuda()
             _pred = self.net(inputs)
+            print(_pred.data)
             pred += [_pred.data.squeeze().cpu().numpy()]
-        pred = np.concatenate(pred, axis=0)#1d，得到此帧onset的概率
+        pred = np.concatenate(pred, axis=0)     #1d，得到此帧onset的概率
         onset_time = self.post_process(pred)
+
         return onset_time
 
     def detect_onset(self, wav_file, res_file):
@@ -110,7 +112,7 @@ class predictor_onset(object):
                 fw.write(str(50) + '\n')
 
     def post_process(self, pred):
-        self._onset_prob = np.where(pred > self.thresh)[0]#onset帧索引
+        self._onset_prob = np.where(pred > self.thresh)[0] #onset帧索引
         self._onset_pred = pred
         onset_prob = self._onset_prob.copy()
         onset_frame = []
@@ -119,7 +121,7 @@ class predictor_onset(object):
             candi_frame = []
             j = i
             while j < len(onset_prob):
-                if (onset_prob[j] - onset_prob[i]) <= 15:#?15
+                if (onset_prob[j] - onset_prob[i]) <= 15:   #0.15内的onset处理
                     candi_frame.append(onset_prob[j])
                 else:
                     break
@@ -136,6 +138,6 @@ class predictor_onset(object):
         return self._onset_time
 
 if __name__ == '__main__':
-    wav_file = 'E:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\408'
+    wav_file = 'F:\\YWM_work\\Music Data\\HUST_Solfege_onset+wav\\408\\408.wav'
     predictor = predictor_onset()
     onset_time = predictor.predict(wav_file)
