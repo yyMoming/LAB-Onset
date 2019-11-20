@@ -10,7 +10,6 @@ import argparse
 import numpy as np
 import config as cfg
 import torch.nn as nn
-from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from Dataset import onset_dataset
 from model import factory_net
@@ -173,9 +172,12 @@ def val(epoch):
 	steps = 0
 	evaluator = evaluate()
 	for batch_idx,(inputs,labels) in enumerate(test_dataloader):
+		if use_cuda:
+			inputs = inputs.cuda()
+			labels = labels.cuda()
 		output = net(inputs)
 		optimizer.zero_grad()
-		loss = criterion(inputs,labels)
+		loss = criterion(output,labels)
 		loss.backward()
 		optimizer.step()
 		steps += 1
@@ -246,6 +248,6 @@ if __name__ == '__main__':
 	                             num_workers=num_worker)
 	# path = os.path.dirname(__file__)
 	# data_path = os.path.join(path,"shuffle_data")
-	if args.train:
-		for epoch in range(args.epoches):
-			main(epoch)
+	# if args.train:
+	for epoch in range(args.epoches):
+		main(epoch)

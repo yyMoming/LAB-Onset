@@ -1,4 +1,8 @@
 import os
+solf_dataset = './shuffle_data/test'
+ref_dir = './log/ref_dir'
+est_dir = './log/est_dir'
+res_dir = './log/res_dir'
 
 note_type_param = {
     0.0625: 0.5,
